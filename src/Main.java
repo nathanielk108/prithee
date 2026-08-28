@@ -16,7 +16,7 @@ public class Main {
         "Nor", "shall", "death", "brag", "thou", "wander’st", "in", "his", "shade,", "\n",
         "When", "in", "eternal", "lines", "to", "time", "thou", "grow’st:", "\n",
         "\t", "So", "long", "as", "men", "can", "breathe", "or", "eyes", "can", "see,", "\n",
-        "\t", "So", "long", "lives", "this,", "and", "this", "gives", "life", "to", "thee.", "\n",
+        "\t", "So", "long", "lives", "this,", "and", "this", "gives", "life", "to", "thee."
     };
 
     public static void main (String[] args) {
@@ -40,11 +40,12 @@ public class Main {
         int numIncorrect = 0;
         while (numCorrect < 3 && numIncorrect < 3) {
             int wordToStop = rand.nextInt(0, sonnet.length);
+            if (sonnet[wordToStop].isBlank()) wordToStop++;
             if (debug) System.out.println("[DEBUG] Word to Stop: " + wordToStop);
             for (int wordNum = 0; wordNum < wordToStop; wordNum++) {
                 String word = sonnet[wordNum];
                 System.out.print(sonnet[wordNum]);
-                if (!word.contains("\n") && !word.contains("\t")) System.out.print(" ");
+                if (!word.isBlank()) System.out.print(" ");
             }
             System.out.println("_____ ");
             System.out.print("Enter the next word: ");
