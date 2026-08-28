@@ -20,19 +20,20 @@ public class Main {
     };
 
     public static void main (String[] args) {
+        Random rand = new Random();
+
         boolean debug = false;
-        long seed = 0;
         for (int argNum = 0; argNum < args.length; argNum++) {
             if (args[argNum].equals("--debug")) {
                 debug = true;
             }
-            else if ((args[argNum].equals("--seed") || args[argNum].equals("-s"))) {
-                seed = (args.length > argNum + 1) ? Long.parseLong(args[argNum + 1]) : 0;
+            else if ((args[argNum].equals("--seed") || args[argNum].equals("-s")) && args.length > argNum + 1) {
+                long seed = Long.parseLong(args[argNum + 1]);
+                rand.setSeed(seed);
+                System.out.println("[DEBUG] Seed = " + seed);
             }
         }
 
-        if (debug) System.out.println("[DEBUG] Seed = " + seed);
-        Random rand = new Random(seed);
         Scanner scanner = new Scanner(System.in);
 
         int numCorrect = 0;
@@ -48,7 +49,7 @@ public class Main {
             System.out.println("_____ ");
             System.out.print("Enter the next word: ");
             String userWord = scanner.nextLine();
-            if (userWord.equals(sonnet[wordToStop])) {
+            if (userWord.equals(sonnet[wordToStop].replaceAll("[;:]$", ""))) {
                 System.out.println("Correct!");
                 numCorrect++;
             }
